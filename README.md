@@ -21,42 +21,84 @@ Antes de ejecutar la aplicación, debe tener instalado:
 6. Usar la ruta de (http://localhost:8088/) para poder acceder o entrar a la pagina principal del proyecto.
 
 ## Estructura del proyecto
-src/
-└── main/
-└── java/
-└── com/gahelrodriguez/kinalapp/
+Kinal_App_2022187/
 │
-├── controller/
-│   ├── ClienteController.java
-│   ├── DetalleVentaController.java
-│   ├── ProductoController.java
-│   ├── UsuarioController.java
-│   └── VentaController.java
+├── pom.xml                              # Dependencias Maven
+├── mvnw / mvnw.cmd                      # Maven wrapper
+├── README.md
+├── .gitignore / .gitattributes
+├── Kinal_App_IN5AM.mwb                  # Modelo de base de datos (MySQL Workbench)
+├── Kinal_App_2022187.postman_collection.json  # Colección de Postman (API REST)
 │
-├── entity/
-│   ├── Cliente.java
-│   ├── DetalleVenta.java
-│   ├── Producto.java
-│   ├── Usuario.java
-│   └── Venta.java
+├── .mvn/wrapper/
+│   └── maven-wrapper.properties
 │
-├── repository/
-│   ├── ClienteRepository.java
-│   ├── DetalleVentaRepository.java
-│   ├── ProductoRepository.java
-│   ├── UsuarioRepository.java
-│   └── VentaRepository.java
+└── src/
+├── main/
+│   ├── java/com/gahelrodriguez/kinalapp/
+│   │   │
+│   │   ├── KinalAppApplication.java          # Clase principal (entry point)
+│   │   │
+│   │   ├── controller/                       # Controladores MVC y REST
+│   │   │   ├── ClienteController.java
+│   │   │   ├── ClienteViewController.java
+│   │   │   ├── DetalleVentaController.java
+│   │   │   ├── HomeController.java
+│   │   │   ├── ProductoController.java
+│   │   │   ├── ProductoViewController.java
+│   │   │   ├── UsuarioController.java
+│   │   │   ├── UsuarioViewController.java
+│   │   │   ├── VentaController.java
+│   │   │   └── VentaViewController.java
+│   │   │
+│   │   ├── entity/                           # Entidades JPA
+│   │   │   ├── Cliente.java
+│   │   │   ├── DetalleVenta.java
+│   │   │   ├── Producto.java
+│   │   │   ├── Usuario.java
+│   │   │   └── Venta.java
+│   │   │
+│   │   ├── repository/                       # Repositorios Spring Data JPA
+│   │   │   ├── ClienteRepository.java
+│   │   │   ├── DetalleVentaRepository.java
+│   │   │   ├── ProductoRepository.java
+│   │   │   ├── UsuarioRepository.java
+│   │   │   └── VentaRepository.java
+│   │   │
+│   │   └── service/                          # Capa de servicios
+│   │       ├── IClienteService.java
+│   │       ├── IDetalleVentaService.java
+│   │       ├── IProductoService.java
+│   │       ├── IUsuarioService.java
+│   │       ├── IVentaService.java
+│   │       ├── ClienteService.java
+│   │       ├── DetalleVentaService.java
+│   │       ├── ProductoService.java
+│   │       ├── UsuarioService.java
+│   │       └── VentaService.java
+│   │
+│   └── resources/
+│       ├── application.properties            # Configuración de la app (DB, puerto, etc.)
+│       ├── static/css/
+│       │   └── styles.css
+│       └── templates/                        # Vistas Thymeleaf
+│           ├── index.html
+│           ├── dashboard.html
+│           ├── layouts/
+│           │   └── layout.html
+│           ├── clientes/
+│           │   ├── lista.html
+│           │   └── formulario.html
+│           ├── productos/
+│           │   ├── lista.html
+│           │   └── formulario.html
+│           ├── usuarios/
+│           │   ├── lista.html
+│           │   └── formulario.html
+│           └── ventas/
+│               ├── lista.html
+│               └── formulario.html
 │
-├── service/
-│   ├── IClienteService.java
-│   ├── ClienteService.java
-│   ├── IDetalleVentaService.java
-│   ├── DetalleVentaService.java
-│   ├── IProductoService.java
-│   ├── ProductoService.java
-│   ├── IUsuarioService.java
-│   ├── UsuarioService.java
-│   ├── IVentaService.java
-│   └── VentaService.java
-│
-└── KinalAppApplication.java
+└── test/
+└── java/com/gahelrodriguez/kinalapp/
+└── KinalAppApplicationTests.java
