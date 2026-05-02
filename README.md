@@ -8,7 +8,7 @@ API REST desarrollada con Spring Boot para la gestión de clientes, usuarios, pr
 
 ## Requisitos Previos
 Antes de ejecutar la aplicación, debe tener instalado:
-* JDK 17 o superior
+* JDK 21 o superior
 * Maven Instalado
 * Una instancia activa en MySQL
 
@@ -23,82 +23,84 @@ Antes de ejecutar la aplicación, debe tener instalado:
 ## Estructura del proyecto
 Kinal_App_2022187/
 │
-├── pom.xml                              # Dependencias Maven
-├── mvnw / mvnw.cmd                      # Maven wrapper
+├── pom.xml
 ├── README.md
-├── .gitignore / .gitattributes
-├── Kinal_App_IN5AM.mwb                  # Modelo de base de datos (MySQL Workbench)
-├── Kinal_App_2022187.postman_collection.json  # Colección de Postman (API REST)
-│
-├── .mvn/wrapper/
-│   └── maven-wrapper.properties
+├── Kinal_App_IN5AM.mwb
+├── Kinal_App_2022187.postman_collection.json
 │
 └── src/
-├── main/
-│   ├── java/com/gahelrodriguez/kinalapp/
-│   │   │
-│   │   ├── KinalAppApplication.java          # Clase principal (entry point)
-│   │   │
-│   │   ├── controller/                       # Controladores MVC y REST
-│   │   │   ├── ClienteController.java
-│   │   │   ├── ClienteViewController.java
-│   │   │   ├── DetalleVentaController.java
-│   │   │   ├── HomeController.java
-│   │   │   ├── ProductoController.java
-│   │   │   ├── ProductoViewController.java
-│   │   │   ├── UsuarioController.java
-│   │   │   ├── UsuarioViewController.java
-│   │   │   ├── VentaController.java
-│   │   │   └── VentaViewController.java
-│   │   │
-│   │   ├── entity/                           # Entidades JPA
-│   │   │   ├── Cliente.java
-│   │   │   ├── DetalleVenta.java
-│   │   │   ├── Producto.java
-│   │   │   ├── Usuario.java
-│   │   │   └── Venta.java
-│   │   │
-│   │   ├── repository/                       # Repositorios Spring Data JPA
-│   │   │   ├── ClienteRepository.java
-│   │   │   ├── DetalleVentaRepository.java
-│   │   │   ├── ProductoRepository.java
-│   │   │   ├── UsuarioRepository.java
-│   │   │   └── VentaRepository.java
-│   │   │
-│   │   └── service/                          # Capa de servicios
-│   │       ├── IClienteService.java
-│   │       ├── IDetalleVentaService.java
-│   │       ├── IProductoService.java
-│   │       ├── IUsuarioService.java
-│   │       ├── IVentaService.java
-│   │       ├── ClienteService.java
-│   │       ├── DetalleVentaService.java
-│   │       ├── ProductoService.java
-│   │       ├── UsuarioService.java
-│   │       └── VentaService.java
+└── main/
+├── java/com/gahelrodriguez/kinalapp/
 │   │
-│   └── resources/
-│       ├── application.properties            # Configuración de la app (DB, puerto, etc.)
-│       ├── static/css/
-│       │   └── styles.css
-│       └── templates/                        # Vistas Thymeleaf
-│           ├── index.html
-│           ├── dashboard.html
-│           ├── layouts/
-│           │   └── layout.html
-│           ├── clientes/
-│           │   ├── lista.html
-│           │   └── formulario.html
-│           ├── productos/
-│           │   ├── lista.html
-│           │   └── formulario.html
-│           ├── usuarios/
-│           │   ├── lista.html
-│           │   └── formulario.html
-│           └── ventas/
-│               ├── lista.html
-│               └── formulario.html
+│   ├── KinalAppApplication.java
+│   │
+│   ├── config/
+│   │   ├── SecurityConfig.java          
+│   │   └── WebConfig.java               
+│   ├── security/
+│   │   └── UsuarioDetailsService.java   
+│   │
+│   ├── util/
+│   │   └── PasswordMigrationUtil.java   
+│   │
+│   ├── controller/
+│   │   ├── ClienteController.java
+│   │   ├── ClienteViewController.java
+│   │   ├── DetalleVentaController.java
+│   │   ├── HomeController.java
+│   │   ├── LoginController.java         
+│   │   ├── ProductoController.java
+│   │   ├── ProductoViewController.java
+│   │   ├── UsuarioController.java
+│   │   ├── UsuarioViewController.java
+│   │   ├── VentaController.java
+│   │   └── VentaViewController.java
+│   │
+│   ├── entity/
+│   │   ├── Cliente.java
+│   │   ├── DetalleVenta.java
+│   │   ├── Producto.java
+│   │   ├── Usuario.java
+│   │   └── Venta.java
+│   │
+│   ├── repository/
+│   │   ├── ClienteRepository.java
+│   │   ├── DetalleVentaRepository.java
+│   │   ├── ProductoRepository.java
+│   │   ├── UsuarioRepository.java
+│   │   └── VentaRepository.java
+│   │
+│   └── service/
+│       ├── IClienteService.java
+│       ├── IDetalleVentaService.java
+│       ├── IProductoService.java
+│       ├── IUsuarioService.java
+│       ├── IVentaService.java
+│       ├── ClienteService.java
+│       ├── DetalleVentaService.java
+│       ├── ProductoService.java
+│       ├── UsuarioService.java
+│       └── VentaService.java
 │
-└── test/
-└── java/com/gahelrodriguez/kinalapp/
-└── KinalAppApplicationTests.java
+└── resources/
+├── application.properties
+├── static/css/
+│   └── styles.css
+└── templates/
+├── index.html
+├── dashboard.html
+├── login.html                   
+├── layouts/
+│   └── layout.html              
+├── clientes/
+│   ├── lista.html
+│   └── formulario.html
+├── productos/
+│   ├── lista.html
+│   └── formulario.html
+├── usuarios/
+│   ├── lista.html
+│   └── formulario.html
+└── ventas/
+├── lista.html
+└── formulario.html

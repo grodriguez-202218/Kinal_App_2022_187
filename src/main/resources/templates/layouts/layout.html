@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,50 +45,64 @@
                         <i class="bi bi-box-seam me-1"></i>Productos
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- Solo ADMIN y VENDEDOR ven el menú de Ventas -->
+                <li class="nav-item" sec:authorize="hasAnyRole('ADMIN','VENDEDOR')">
                     <a class="nav-link" th:href="@{/ventas/vista}">
                         <i class="bi bi-cart me-1"></i>Ventas
                     </a>
                 </li>
-                <li class="nav-item">
+                <!-- Solo ADMIN ve el menú de Usuarios -->
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link" th:href="@{/usuarios/vista}">
                         <i class="bi bi-person-workspace me-1"></i>Usuarios
                     </a>
                 </li>
             </ul>
 
-            <!-- Usuario logueado + Logout -->
-            <ul class="navbar-nav ms-auto align-items-center" th:if="${session.usuarioLogueado != null}">
-                <!-- Rol badge -->
+            <!-- Info del usuario autenticado por Spring Security -->
+            <ul class="navbar-nav ms-auto align-items-center" sec:authorize="isAuthenticated()">
+
+                <!-- Rol badge (Spring Security provee authentication.authorities) -->
                 <li class="nav-item me-2">
-                        <span style="
-                            font-family: 'Fredoka One', cursive;
-                            background: var(--yellow);
-                            color: var(--border-color);
-                            border: 2px solid var(--border-color);
-                            padding: 4px 12px;
-                            font-size: 0.8rem;
-                            box-shadow: 2px 2px 0 var(--border-color);
-                            text-transform: uppercase;
-                            letter-spacing: 1px;
-                        " th:text="${session.rolLogueado}">ROL</span>
+                    <span style="
+                        font-family: 'Fredoka One', cursive;
+                        background: var(--yellow);
+                        color: var(--border-color);
+                        border: 2px solid var(--border-color);
+                        padding: 4px 12px;
+                        font-size: 0.8rem;
+                        box-shadow: 2px 2px 0 var(--border-color);
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                    "
+                          th:text="${#authentication.getPrincipal().getAuthorities()[0].getAuthority().replace('ROLE_','')}">
+                        ROL
+                    </span>
                 </li>
-                <!-- Nombre de usuario -->
+
+                <!-- Nombre de usuario autenticado -->
                 <li class="nav-item me-3">
-                        <span style="
-                            font-family: 'Fredoka One', cursive;
-                            color: white;
-                            font-size: 1rem;
-                            text-transform: uppercase;
-                            letter-spacing: 1px;
-                        ">
-                            <i class="bi bi-person-circle me-1"></i>
-                            <span th:text="${session.usernameLogueado}">usuario</span>
-                        </span>
+                    <span style="
+                        font-family: 'Fredoka One', cursive;
+                        color: white;
+                        font-size: 1rem;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                    ">
+                        <i class="bi bi-person-circle me-1"></i>
+                        <!--
+                            sec:authentication="name" obtiene el username
+                            del Principal autenticado por Spring Security
+                        -->
+                        <span sec:authentication="name">usuario</span>
+                    </span>
                 </li>
+
                 <!-- Botón cerrar sesión -->
+                <!-- POST es más seguro que GET para logout (CSRF protection) -->
                 <li class="nav-item">
-                    <a th:href="@{/logout}" style="
+                    <form th:action="@{/logout}" method="post" style="display:inline;">
+                        <button type="submit" style="
                             font-family: 'Fredoka One', cursive;
                             background: var(--blue-dark);
                             color: white;
@@ -97,14 +112,14 @@
                             box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
                             text-transform: uppercase;
                             letter-spacing: 1px;
-                            text-decoration: none;
-                            display: inline-block;
+                            cursor: pointer;
                             transition: all 0.2s ease;
                         "
-                       onmouseover="this.style.transform='translate(-2px,-2px)';this.style.boxShadow='5px 5px 0 rgba(0,0,0,0.3)'"
-                       onmouseout="this.style.transform='';this.style.boxShadow='3px 3px 0 rgba(0,0,0,0.3)'">
-                        <i class="bi bi-box-arrow-right me-1"></i>Salir
-                    </a>
+                                onmouseover="this.style.transform='translate(-2px,-2px)';this.style.boxShadow='5px 5px 0 rgba(0,0,0,0.3)'"
+                                onmouseout="this.style.transform='';this.style.boxShadow='3px 3px 0 rgba(0,0,0,0.3)'">
+                            <i class="bi bi-box-arrow-right me-1"></i>Salir
+                        </button>
+                    </form>
                 </li>
             </ul>
         </div>
