@@ -13,7 +13,7 @@ Antes de ejecutar la aplicación, debe tener instalado:
 * Una instancia activa en MySQL
 
 ## Instalación y Ejecución
-1. Clonar el repositorio(gh repo clone grodriguez-202218/Kinal_App_2022187)
+1. Clonar el repositorio(gh repo clone grodriguez-202218/Kinal_App_2022_187)
 2. Abrir el proyecto en IntelliJ IDEA
 3. Compilar el proyecto
 4. Ejecutar "KinalAppApplication"
